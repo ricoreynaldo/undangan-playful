@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Wedding</title>
+  <meta name="theme-color" content="#ece6d8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Patrick+Hand&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 -16 40 36'%3E%3Cpath d='M0 15C-9 8-17 1-16-7C-15-13-6-15 0-8C6-15 15-13 16-7C17 1 9 8 0 15Z' fill='%23fff' stroke='%23161616' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- aktifkan mode animasi sebelum render pertama (garis doodle & [data-reveal] disembunyikan dulu) -->
+  <script>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    // pengaman: bila play.js gagal dimuat, tampilkan semua konten tanpa animasi
+    addEventListener('load', function () { if (!window.__play) document.documentElement.classList.remove('motion'); });
+  </script>
+</head>
+<body class="locked">
+
+  <!-- filter "garis bergetar" (line boil) untuk doodle -->
+  <svg class="fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="boil0" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2" /><feDisplacementMap in="SourceGraphic" scale="2.4" xChannelSelector="R" yChannelSelector="G" /></filter>
+    <filter id="boil1" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" /><feDisplacementMap in="SourceGraphic" scale="2.4" xChannelSelector="R" yChannelSelector="G" /></filter>
+    <filter id="boil2" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="13" /><feDisplacementMap in="SourceGraphic" scale="2.4" xChannelSelector="R" yChannelSelector="G" /></filter>
+  </svg>
+
+  <!-- lapisan dekoratif: doodle berjatuhan & bunga yang digambar saat diketuk -->
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+  <div class="planted" id="planted" aria-hidden="true"></div>
+
+  <!-- ============ SAMPUL ============ -->
+  <section id="cover" class="cover">
+    <div class="cover-card">
+      <div class="cc-flora bl" data-doodle="corner" data-seed="11"></div>
+      <div class="cc-flora br" data-doodle="corner" data-seed="23"></div>
+      <div class="cover-disco" data-doodle="disco" data-boil data-b=".2s"></div>
+
+      <div class="cover-inner">
+        <h1 class="cover-title hand" id="coverTitle"><span class="jig"></span><span class="jig"></span></h1>
+        <div class="cover-scene" data-doodle="scene" data-boil data-b=".6s"></div>
+        <p class="cover-names hand jig" data-names></p>
+        <p class="cover-invite" data-text="cover.invite"></p>
+        <p class="cover-when hand"><span data-text="timeShort"></span><span data-text="dateShort"></span></p>
+        <div class="cover-guest">
+          <p class="label">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+          <p class="guest-name" id="guestName"></p>
+        </div>
+        <button class="btn" id="openBtn" type="button">
+          <span class="btn-ico" data-doodle="heart"></span>
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <div class="sheet">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="top">
+        <div class="hero-disco" data-doodle="disco" data-boil></div>
+        <p class="hand hero-kicker jig" data-text="hero.kicker" data-reveal></p>
+        <div class="hero-frame" data-reveal>
+          <div class="photo hero-photo tape"><img data-photo="hero.photo" alt="Foto pasangan" /></div>
+          <div class="hf-flora tl" data-doodle="bouquet" data-boil data-seed="5"></div>
+          <div class="hf-flora br" data-doodle="bouquet" data-boil data-seed="8"></div>
+        </div>
+        <h2 class="hand hero-names jig" data-names data-reveal></h2>
+        <div class="squiggle" data-doodle="squiggle"></div>
+        <p class="hero-date" data-text="dateLong" data-reveal></p>
+        <p class="hint" id="plantHint" data-reveal>
+          <span class="hint-ico" data-doodle="daisy"></span>
+          Ketuk area kosong untuk menggambar bunga
+        </p>
+        <div class="meadow" data-doodle="meadow" data-seed="3" data-w="1600"></div>
+      </section>
+
+      <div class="marquee" aria-hidden="true"><div class="mq-track" id="marquee"></div></div>
+
+      <!-- ============ AYAT ============ -->
+      <section class="sec quote-sec">
+        <div class="wrap">
+          <div class="card sketch quote-card" data-reveal>
+            <div class="card-flora tl" data-doodle="corner" data-seed="31"></div>
+            <span class="sec-ico" data-doodle="heart"></span>
+            <p class="quote" data-text="quote.text"></p>
+            <p class="label" data-text="quote.source"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MEMPELAI ============ -->
+      <section class="sec" id="couple">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="rings"></span>
+            <p class="label">Mempelai</p>
+            <h2 class="sec-title hand">Dua sejoli</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+            <p class="lead" data-text="couple.intro"></p>
+          </header>
+          <div class="couple">
+            <article class="person" data-reveal>
+              <div class="person-frame">
+                <div class="photo person-photo tape"><img data-photo="couple.groom.photo" alt="Mempelai pria" /></div>
+                <div class="pf-flora" data-doodle="stem" data-k="tulip" data-h="80" data-seed="14"></div>
+              </div>
+              <p class="label">Mempelai pria</p>
+              <h3 class="person-name hand" data-text="couple.groom.name"></h3>
+              <p class="person-title" data-text="couple.groom.title"></p>
+              <p class="person-parents" data-text="couple.groom.parents"></p>
+              <a class="ig" data-ig="groom" target="_blank" rel="noopener" hidden></a>
+            </article>
+            <div class="couple-amp" data-reveal>
+              <span class="amp-heart" data-doodle="heart" data-boil></span>
+              <span class="hand amp">+</span>
+            </div>
+            <article class="person" data-reveal>
+              <div class="person-frame">
+                <div class="photo person-photo tape"><img data-photo="couple.bride.photo" alt="Mempelai wanita" /></div>
+                <div class="pf-flora" data-doodle="stem" data-k="daisy" data-h="86" data-seed="19"></div>
+              </div>
+              <p class="label">Mempelai wanita</p>
+              <h3 class="person-name hand" data-text="couple.bride.name"></h3>
+              <p class="person-title" data-text="couple.bride.title"></p>
+              <p class="person-parents" data-text="couple.bride.parents"></p>
+              <a class="ig" data-ig="bride" target="_blank" rel="noopener" hidden></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" data-doodle="garland" data-seed="2"></div>
+
+      <!-- ============ COUNTDOWN ============ -->
+      <section class="sec countdown-sec">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="cal"></span>
+            <p class="label">Menuju hari bahagia</p>
+            <h2 class="sec-title hand">Tinggal sebentar lagi!</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+          </header>
+          <div class="countdown" id="countdown">
+            <div class="cd" data-reveal><span class="cd-ring" data-doodle="ring" data-seed="3"></span><b data-cd="d">00</b><span class="cd-unit">Hari</span></div>
+            <div class="cd" data-reveal><span class="cd-ring" data-doodle="ring" data-seed="5"></span><b data-cd="h">00</b><span class="cd-unit">Jam</span></div>
+            <div class="cd" data-reveal><span class="cd-ring" data-doodle="ring" data-seed="9"></span><b data-cd="m">00</b><span class="cd-unit">Menit</span></div>
+            <div class="cd" data-reveal><span class="cd-ring" data-doodle="ring" data-seed="12"></span><b data-cd="s">00</b><span class="cd-unit">Detik</span></div>
+          </div>
+          <div class="cd-foot" data-reveal>
+            <p class="cd-date hand" data-text="dateLong"></p>
+            <a class="btn btn-line" id="calLink" target="_blank" rel="noopener">Simpan ke kalender <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CERITA ============ -->
+      <section class="sec story-sec" id="story-sec">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="coupe"></span>
+            <p class="label">Perjalanan</p>
+            <h2 class="sec-title hand">Cerita kami</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+          </header>
+          <div class="story-wrap" id="storyWrap">
+            <div class="story-line" data-doodle="vline"></div>
+            <ol class="story" id="story"></ol>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" data-doodle="garland" data-seed="9"></div>
+
+      <!-- ============ ACARA ============ -->
+      <section class="sec events-sec" id="events">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="pin"></span>
+            <p class="label">Waktu & tempat</p>
+            <h2 class="sec-title hand">Catat tanggalnya!</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+          </header>
+          <div class="events" id="eventList"></div>
+        </div>
+      </section>
+
+      <!-- ============ GALERI ============ -->
+      <section class="sec" id="gallery-sec">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="camera"></span>
+            <p class="label" id="frameCount"></p>
+            <h2 class="sec-title hand">Momen kami</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+          </header>
+          <div class="gallery" id="gallery"></div>
+        </div>
+      </section>
+
+      <div class="divider" data-doodle="garland" data-seed="15"></div>
+
+      <!-- ============ RSVP + BUKU TAMU ============ -->
+      <section class="sec rsvp-sec" id="rsvp">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="envelope"></span>
+            <p class="label">RSVP & ucapan</p>
+            <h2 class="sec-title hand">Datang ya!</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+            <p class="lead">Mohon konfirmasi kehadiran Anda dan tinggalkan doa terbaik untuk kami.</p>
+          </header>
+          <div class="rsvp-grid">
+            <form class="card sketch rsvp" id="rsvpForm" novalidate data-reveal>
+              <div class="card-flora tr" data-doodle="corner" data-seed="44"></div>
+              <label class="field">
+                <input name="name" id="rsvpName" maxlength="60" autocomplete="name" placeholder=" " required />
+                <span>Nama</span>
+              </label>
+              <div class="choice" role="radiogroup" aria-label="Konfirmasi kehadiran">
+                <label><input type="radio" name="attendance" value="hadir" /><span class="pill"><i data-doodle="daisy" data-r="16" data-manual></i>Hadir</span></label>
+                <label><input type="radio" name="attendance" value="tidak" /><span class="pill"><i data-doodle="bloom" data-r="16" data-manual></i>Berhalangan</span></label>
+              </div>
+              <label class="field" id="guestsField">
+                <select name="guests">
+                  <option value="1">1 orang</option>
+                  <option value="2">2 orang</option>
+                  <option value="3">3 orang</option>
+                  <option value="4">4 orang</option>
+                </select>
+                <span>Jumlah tamu</span>
+              </label>
+              <label class="field">
+                <textarea name="message" rows="3" maxlength="500" placeholder=" "></textarea>
+                <span>Ucapan & doa</span>
+              </label>
+              <p class="form-msg" id="rsvpMsg" role="status"></p>
+              <button class="btn" type="submit">
+                <span class="btn-ico" data-doodle="heart"></span>
+                Kirim
+              </button>
+            </form>
+
+            <div class="card sketch guestbook" data-reveal>
+              <div class="gb-head">
+                <p class="label">Buku tamu</p>
+                <p class="gb-stats" id="gbStats"></p>
+              </div>
+              <ul class="wishes" id="wishes"></ul>
+              <button class="btn btn-line" id="moreWishes" type="button" hidden>Lihat lebih banyak</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HADIAH ============ -->
+      <section class="sec gift-sec" id="gift">
+        <div class="wrap">
+          <header class="sec-head" data-reveal>
+            <span class="sec-ico" data-doodle="gift"></span>
+            <p class="label">Tanda kasih</p>
+            <h2 class="sec-title hand">Kirim kado</h2>
+            <div class="squiggle" data-doodle="squiggle"></div>
+            <p class="lead">Doa restu Anda adalah hadiah terindah. Namun bila ingin berbagi tanda kasih, kami menerimanya dengan penuh syukur.</p>
+          </header>
+          <div class="gifts" id="gifts"></div>
+        </div>
+      </section>
+
+      <!-- ============ PENUTUP ============ -->
+      <footer class="closing" id="closing">
+        <div class="closing-inner">
+          <div class="closing-art" data-reveal>
+            <div class="closing-photo photo tape"><img data-photo="closing.photo" alt="" /></div>
+            <div class="closing-bouquet" data-doodle="bouquet" data-boil data-seed="77"></div>
+            <div class="closing-cake" data-doodle="cake" data-boil data-seed="4"></div>
+          </div>
+          <h2 class="closing-title hand jig" data-text="closing.title" data-reveal></h2>
+          <p class="closing-sub" data-text="closing.text" data-reveal></p>
+          <p class="closing-names hand jig" data-names data-reveal></p>
+          <p class="cover-when hand" data-reveal><span data-text="dateShort"></span></p>
+        </div>
+        <div class="meadow" data-doodle="meadow" data-seed="21" data-w="1600"></div>
+        <div class="foot">
+          <p>Made with love · HEAVEN · <a href="kredit.html">Kredit aset</a></p>
+          <a class="wa-tag" id="waTag" target="_blank" rel="noopener" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24s8.24 3.7 8.24 8.24-3.7 8.24-8.24 8.24Zm4.52-6.17c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.99-1.23-.73-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+            <span></span>
+          </a>
+          <a class="to-top" href="#top">Kembali ke atas ↑</a>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Musik: disco ball mini berputar saat musik diputar -->
+  <button class="music" id="musicBtn" type="button" aria-label="Putar / jeda musik" hidden>
+    <span data-doodle="disco" data-mini></span>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" type="button" aria-label="Tutup">✕</button>
+    <button class="lb-nav prev" type="button" aria-label="Sebelumnya">←</button>
+    <img alt="" />
+    <button class="lb-nav next" type="button" aria-label="Berikutnya">→</button>
+    <p class="lb-count" id="lbCount"></p>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/doodle.js"></script>
+  <script src="js/play.js"></script>
+  <script type="module" src="js/db.js"></script>
+</body>
+</html>

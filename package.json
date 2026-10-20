@@ -1,0 +1,14 @@
+{
+  "name": "undangan-playful",
+  "version": "1.0.0",
+  "description": "Undangan pernikahan digital bertema playful doodle tinta — banyak bunga & animasi; RSVP & guestbook di Firebase Firestore",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
