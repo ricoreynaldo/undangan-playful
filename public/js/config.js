@@ -13,14 +13,14 @@ window.INVITATION = {
       title: 'S.Ds.',
       parents: 'Putra pertama dari Bapak Hendra Gunawan & Ibu Ratna Dewi',
       instagram: 'rakaaditya', // tanpa @ — kosongkan untuk menyembunyikan
-      photo: 'images/groom.jpg',
+      photo: 'img-undangan/61d0d79a7753b69f3e143795836a8153.jpg',
     },
     bride: {
       name: 'Nadia Putri Maharani',
       title: 'S.I.Kom.',
       parents: 'Putri kedua dari Bapak Agus Salim & Ibu Wulan Sari',
       instagram: 'nadiaputri',
-      photo: 'images/bride.jpg',
+      photo: 'img-undangan/a843abd1f4f511a3b717402a0b48a006.jpg',
     },
   },
 
@@ -37,7 +37,7 @@ window.INVITATION = {
   },
 
   hero: {
-    photo: 'images/hero.jpg',
+    photo: 'img-undangan/45c3f0078259ab963014c4d835a8c48e.jpg',
     kicker: 'Yeay, kami menikah!',
   },
 
@@ -51,25 +51,25 @@ window.INVITATION = {
       year: '2019',
       title: 'Kopi yang tertukar',
       text: 'Pesanan kami tertukar di sebuah kedai kopi di Kemang — ia dapat es kopi susu saya, saya dapat americano-nya. Kami tertawa, lalu duduk satu meja.',
-      photo: 'images/gallery-hands.jpg',
+      photo: 'img-undangan/a751177140d9a863db5f558a5c12d23a.jpg',
     },
     {
       year: '2022',
       title: 'Partner segala hal',
       text: 'Dari konser kecil, nyasar di jalan tol, sampai merakit lemari bersama. Ternyata semuanya lebih seru kalau berdua.',
-      photo: 'images/gallery-forest.jpg',
+      photo: 'img-undangan/d0defbbc7f6b72c5f8f8f7620ad5691a.jpg',
     },
     {
       year: '2026',
       title: 'Iya!',
       text: 'Di tengah piknik sederhana dengan kue berbentuk hati, sebuah cincin keluar dari kotak bekal. Jawabannya: iya, tentu saja!',
-      photo: 'images/gallery-rings.jpg',
+      photo: 'img-undangan/0a400eaa1f10a7e4a12e079a7f321df1.jpg',
     },
     {
       year: '2027',
       title: 'Ayo berpesta',
       text: 'Sekarang giliran kami merayakan — dan pesta tidak akan lengkap tanpa kamu. Sampai bertemu di lantai dansa!',
-      photo: 'images/gallery-aisle.jpg',
+      photo: 'img-undangan/0a2085c735ff185d105bef9eb93f3b47.jpg',
     },
   ],
 
@@ -99,13 +99,13 @@ window.INVITATION = {
   ],
 
   gallery: [
-    'images/gallery-smile.jpg',
-    'images/gallery-veil.jpg',
-    'images/gallery-hands.jpg',
-    'images/gallery-shoes.jpg',
-    'images/gallery-aisle.jpg',
-    'images/gallery-forest.jpg',
-    'images/gallery-rings.jpg',
+    'img-undangan/45c3f0078259ab963014c4d835a8c48e.jpg',
+    'img-undangan/6fe3e4aa5d48be2166de719e3831f568.jpg',
+    'img-undangan/a751177140d9a863db5f558a5c12d23a.jpg',
+    'img-undangan/af8229644236640067d2be790fe9a79a.jpg',
+    'img-undangan/0a2085c735ff185d105bef9eb93f3b47.jpg',
+    'img-undangan/d0defbbc7f6b72c5f8f8f7620ad5691a.jpg',
+    'img-undangan/0a400eaa1f10a7e4a12e079a7f321df1.jpg',
   ],
 
   gift: {
@@ -123,7 +123,7 @@ window.INVITATION = {
   },
 
   closing: {
-    photo: 'images/closing.jpg',
+    photo: 'img-undangan/a751177140d9a863db5f558a5c12d23a.jpg',
     title: 'Sampai jumpa di pesta!',
     text: 'Kehadiran dan doa restu Anda adalah hadiah paling manis untuk kami. Siapkan sepatu dansamu ya!',
   },

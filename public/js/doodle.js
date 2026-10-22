@@ -313,7 +313,7 @@
           p.g('mer', () => {
             p.raw(`<circle r="${R}" fill="none" stroke="none"/>`);
             p.ln(smooth(mer, false), 1.4);
-          }, '', `--k:${k};transform-box:fill-box;transform-origin:center;transform:scaleX(${f(-Math.cos((Math.PI * k) / 4) * 100) / 100})`); // posisi diam = fase animasi
+          }, '', `--k:${k};transform-box:fill-box;transform-origin:center;transform:scaleX(${f(-Math.cos((Math.PI * (k + 0.5)) / 4) * 100) / 100})`); // posisi diam = fase animasi
         }
         p.raw(`<g class="twk" style="--k:1">`); p.fl(star(-R * 0.42, -R * 0.42, R * 0.16)); p.raw('</g>');
       });

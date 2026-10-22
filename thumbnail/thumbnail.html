@@ -9,38 +9,42 @@
 <style>
   * { box-sizing: border-box; margin: 0; }
   html, body { width: 1200px; height: 1500px; overflow: hidden; }
-  body { position: relative; background: #ece6d8; font-family: 'Patrick Hand', sans-serif; color: #161616; }
+  body { position: relative; background: #fff; font-family: 'Patrick Hand', sans-serif; color: #161616; --pf: #fff; }
   .doodle { display: block; width: 100%; height: auto; overflow: visible; color: #161616; }
   .doodle .ln { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
   .doodle .fl { fill: currentColor; }
-  .doodle .pf { fill: var(--pf, #fff); }
+  .doodle .pf { fill: var(--pf); }
   .doodle .txt { fill: currentColor; font-family: 'Caveat', cursive; font-weight: 700; }
-  .card { position: absolute; left: 150px; top: 70px; width: 900px; height: 1360px; background: #fff; rotate: -1deg;
-    box-shadow: 0 60px 80px -50px rgba(70, 58, 34, .6), 0 4px 10px rgba(70, 58, 34, .1); }
-  .disco { position: absolute; top: -6px; right: 40px; width: 270px; }
-  .title { position: absolute; left: 60px; top: 200px; font: 98px/1.12 'Gochi Hand'; letter-spacing: .05em; text-transform: uppercase; rotate: -7deg; transform-origin: 0 100%; }
+  .abs { position: absolute; }
+  .disco { top: -8px; right: 70px; width: 290px; }
+  .title { left: 80px; top: 170px; font: 106px/1.12 'Gochi Hand'; letter-spacing: .05em; text-transform: uppercase; rotate: -7deg; transform-origin: 0 100%; }
   .title span { display: block; } .title span + span { margin-left: 1.25em; }
-  .scene { position: absolute; left: 30px; right: 30px; top: 470px; }
-  .names { position: absolute; left: 0; right: 0; top: 960px; text-align: center; font: 92px/1 'Gochi Hand'; letter-spacing: .05em; text-transform: uppercase; }
-  .invite { position: absolute; left: 0; right: 0; top: 1080px; text-align: center; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; }
-  .when { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; font: 64px 'Gochi Hand'; letter-spacing: .06em; }
-  .cf { position: absolute; bottom: -10px; width: 230px; }
-  .cf.bl { left: -10px; transform: scaleY(-1); } .cf.br { right: -10px; transform: scale(-1, -1); }
-  .chip { position: absolute; left: 50%; bottom: 46px; translate: -50% 0; padding: 18px 40px 16px; background: #161616; color: #fff; font: 34px 'Gochi Hand'; letter-spacing: .08em; text-transform: uppercase; border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px; white-space: nowrap; }
+  .tl { top: -14px; left: -14px; width: 190px; }
+  .scene { left: 150px; width: 900px; top: 450px; }
+  .names { left: 0; right: 0; top: 955px; text-align: center; font: 100px/1 'Gochi Hand'; letter-spacing: .05em; text-transform: uppercase; }
+  .invite { left: 0; right: 0; top: 1082px; text-align: center; font-size: 31px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; }
+  .when { left: 0; right: 0; top: 1186px; text-align: center; font: 66px 'Gochi Hand'; letter-spacing: .06em; }
+  .meadow { left: 0; right: 0; bottom: 0; height: 190px; }
+  .meadow .doodle { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .bq { bottom: -26px; width: 300px; }
+  .bq.l { left: -30px; rotate: -12deg; } .bq.r { right: -30px; rotate: 12deg; transform: scaleX(-1); }
+  .chip { left: 50%; top: 1300px; translate: -50% 0; display: flex; align-items: center; gap: 14px; padding: 16px 38px 14px 26px; background: #161616; color: #fff;
+    font: 34px 'Gochi Hand'; letter-spacing: .08em; text-transform: uppercase; border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px; white-space: nowrap; --pf: #161616; }
+  .chip span { width: 40px; height: 36px; } .chip .doodle { color: #fff; width: 100%; height: 100%; }
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="disco" data-doodle="disco"></div>
-    <h1 class="title"><span>Kami akan</span><span>menikah!</span></h1>
-    <div class="scene" data-doodle="scene"></div>
-    <p class="names">Raka + Nadia</p>
-    <p class="invite">dengan gembira mengundang anda<br />ke pesta pernikahan kami</p>
-    <p class="when">08.00 · 22.5.27</p>
-    <div class="cf bl" data-doodle="corner" data-seed="11"></div>
-    <div class="cf br" data-doodle="corner" data-seed="23"></div>
-  </div>
-  <div class="chip">Undangan Playful</div>
+  <div class="abs tl" data-doodle="corner" data-seed="31"></div>
+  <div class="abs disco" data-doodle="disco"></div>
+  <h1 class="abs title"><span>Kami akan</span><span>menikah!</span></h1>
+  <div class="abs scene" data-doodle="scene"></div>
+  <p class="abs names">Raka + Nadia</p>
+  <p class="abs invite">dengan gembira mengundang anda<br />ke pesta pernikahan kami</p>
+  <p class="abs when">08.00 · 22.5.27</p>
+  <div class="abs meadow" data-doodle="meadow" data-seed="3" data-w="1600"></div>
+  <div class="abs bq l" data-doodle="bouquet" data-seed="5"></div>
+  <div class="abs bq r" data-doodle="bouquet" data-seed="8"></div>
+  <div class="abs chip"><span data-doodle="heart"></span>Playful Theme</div>
   <script>window.INVITATION = { playful: { cakeText: 'Love Club' } };</script>
   <script src="../public/js/doodle.js"></script>
 </body>

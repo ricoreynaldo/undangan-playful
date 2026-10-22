@@ -96,7 +96,7 @@ p { margin: 0; }
 .doodle .twk { transform-box: fill-box; transform-origin: 50% 50%; animation: twk 1.6s ease-in-out infinite; animation-delay: calc(var(--k, 0) * -0.4s); }
 .doodle .ray { animation: ray 1.2s steps(1) infinite; animation-delay: calc(var(--k, 0) * -0.3s); }
 .doodle .swing { transform-box: fill-box; transform-origin: 50% 0; animation: swing 3.4s ease-in-out infinite alternate; }
-.doodle .mer { transform-box: fill-box; transform-origin: 50% 50%; animation: mer 4s cubic-bezier(0.37, 0, 0.63, 1) infinite; animation-delay: calc(var(--k, 0) * -1s); }
+.doodle .mer { transform-box: fill-box; transform-origin: 50% 50%; animation: mer 4s cubic-bezier(0.37, 0, 0.63, 1) infinite; animation-delay: calc((var(--k, 0) + 0.5) * -1s); }
 .doodle .cakebody { transform-box: fill-box; transform-origin: 50% 100%; animation: squash 3.2s var(--ease) infinite; }
 .motion .doodle .pop { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0); transition: transform 0.8s var(--spring); transition-delay: calc(var(--b, 0s) + var(--n, 0) * 0.11s); }
 .motion .doodle.drawn .pop { transform: none; }
